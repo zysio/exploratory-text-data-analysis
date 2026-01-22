@@ -18,6 +18,7 @@ def softmax(x):
     """Konwertuje decision scores na prawdopodobieństwa"""
     exp_x = np.exp(x - np.max(x))  # stabilność numeryczna
     return exp_x / exp_x.sum()
+
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -335,9 +336,9 @@ class EmailClassifierGUI:
             prediction = model_data['model'].predict(text_vector)[0]
             category = model_data['label_encoder'].inverse_transform([prediction])[0]
             
-            # Prawdopodobieństwa dla wszystkich kategorii
+            # wyniki dla wszystkich kategorii
             decision_scores = model_data['model'].decision_function(text_vector)[0]
-            probabilities = softmax(decision_scores) * 100  # Konwersja na procenty
+            probabilities = softmax(decision_scores) * 100
             
             # Wyświetlanie głównego wyniku
             main_result = tk.Frame(self.result_frame, bg='white')
